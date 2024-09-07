@@ -44,4 +44,14 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="add_event">Add New Event</string>
+    <string name="logo">Event Manager Logo</string>
+    <string name="home">Home</string>
+    <string name="upcoming_event">Upcoming Event</string>
+    <string name="list_of_completed_events">List of Completed Events</string>
+    <string name="back_to_home">Back To Home</string>
+    <string name="event_title">Events</string>
+    <string name="guest_title">Guests</string>
+    <string name="budget_title">Budget</string>
+    <string name="vendor_title">Vendors</string>
 </resources>

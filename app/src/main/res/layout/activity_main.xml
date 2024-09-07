@@ -24,19 +24,20 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <ImageView
-                android:id="@+id/hometoolbar"
+                android:id="@+id/homeIcon"
                 android:layout_width="43dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/home"
                 android:padding="20dp"
                 android:scaleType="center"
-                app:srcCompat="@drawable/homeimg" />
+                app:srcCompat="@drawable/rounded_home_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Home"
+                android:text="@string/home"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -49,7 +50,8 @@
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/logotemp" />
+                android:contentDescription="@string/logo"
+                android:src="@drawable/temp_logo" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -59,35 +61,35 @@
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout3">
 
         <LinearLayout
-            android:id="@+id/mainlayout"
+            android:id="@+id/mainLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/upcomecard"
+                android:id="@+id/upcomingEventCard"
                 android:layout_width="match_parent"
                 android:layout_height="152dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/upcomingdraw">
+                android:background="@drawable/upcoming_event_bg">
 
                 <ProgressBar
                     android:id="@+id/progressBarCircular"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="384dp"
+                    android:layout_width="match_parent"
                     android:layout_height="5dp"
                     android:layout_gravity="center"
                     android:indeterminate="false"
                     android:max="100"
                     android:progress="60"
                     android:progressDrawable="@drawable/custom_progressbar"
-                    app:layout_constraintBottom_toTopOf="@+id/ueventName"
+                    app:layout_constraintBottom_toTopOf="@+id/ucEventName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -99,7 +101,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginTop="16dp"
                     android:text="00 : 00 : 00 : 00"
-                    android:textColor="#000"
+                    android:textColor="@color/yellow"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,17 +112,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Upcoming Event"
+                    android:text="@string/upcoming_event"
                     android:textColor="#FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/ueventName"
+                    android:id="@+id/ucEventName"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/eventname"
+                    android:background="@drawable/event_name_bg"
                     android:padding="10dp"
                     android:text="Event Name"
                     android:textAlignment="center"
@@ -150,75 +152,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/comletedlistback"
+                android:background="@drawable/completed_list_bg"
                 android:elevation="10dp"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="List of Completed Events"
+                android:text="@string/list_of_completed_events"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:background="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <ImageButton
-            android:id="@+id/homeButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Home"
-            android:onClick="goToHome"
-            android:padding="20dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/house" />
-
-
-        <ImageButton
-            android:id="@+id/eventsButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="events"
-            android:onClick="goToEvents"
-            android:scaleType="fitXY"
-            android:src="@drawable/ev" />
-
-
-        <ImageButton
-            android:id="@+id/Buttonbudget"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Budget"
-            android:onClick="goToBudget"
-            android:scaleType="fitXY"
-            android:src="@drawable/budget2" />
-
-
-        <ImageButton
-            android:id="@+id/GuestButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Guests"
-            android:onClick="goToProfile"
-            android:padding="20dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/guest2" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

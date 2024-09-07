@@ -22,20 +22,23 @@
             android:background="#E8E8E8"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <ImageView
-                android:id="@+id/eventtoolbar"
-                android:layout_width="43dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+            <ImageButton
+                android:id="@+id/backToHome"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:background="#E8E8E8"
+                android:contentDescription="@string/back_to_home"
                 android:padding="10dp"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/backarrow" />
+                app:srcCompat="@drawable/rounded_arrow_back_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Events"
+                android:letterSpacing="0.09"
+                android:text="@string/event_title"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -48,93 +51,47 @@
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/logotemp" />
+                android:contentDescription="@string/logo"
+                android:src="@drawable/temp_logo" />
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="71dp"
-        android:layout_height="71dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:scaleType="fitXY"
-        android:textAlignment="center"
-        android:tooltipText="Add Event"
-        app:layout_constraintBottom_toBottomOf="@+id/listView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/plus" />
-
     <ListView
         android:id="@+id/listView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout3" />
 
-    <LinearLayout
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:background="#FFFFFF"
-        android:orientation="horizontal"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addEventBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="@string/add_event"
+        android:scaleType="fitXY"
+        android:textAlignment="center"
+        android:tooltipText="Add Event"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.85"
+        app:srcCompat="@drawable/plus" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
-        <ImageButton
-            android:id="@+id/homeButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Home"
-            android:onClick="goToHome"
-            android:padding="20dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/house" />
-
-
-        <ImageButton
-            android:id="@+id/eventsButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="events"
-            android:onClick="goToEvents"
-            android:scaleType="fitXY"
-            android:src="@drawable/ev" />
-
-
-        <ImageButton
-            android:id="@+id/Buttonbudget"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Budget"
-            android:onClick="goToBudget"
-            android:scaleType="fitXY"
-            android:src="@drawable/budget2" />
-
-
-        <ImageButton
-            android:id="@+id/GuestButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Guests"
-            android:onClick="goToProfile"
-            android:padding="20dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/guest2" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
