@@ -5,14 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.examples.allnewownevent.R;
 
 public class ImageButtonAdapter extends BaseAdapter {
-    private Context mContext;
-    private int[] mImageIds;
+    private final Context mContext;
+    private final int[] mImageIds;
 
     public ImageButtonAdapter(Context context, int[] imageIds) {
         mContext = context;
@@ -40,7 +38,7 @@ public class ImageButtonAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            gridItem = inflater.inflate(R.layout.grid_item, null);
+            gridItem = inflater.inflate(R.layout.grid_item, parent, false);
         } else {
             gridItem = convertView;
         }
