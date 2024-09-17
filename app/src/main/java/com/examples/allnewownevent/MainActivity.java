@@ -4,10 +4,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +36,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ImageButtonAdapter adapter = new ImageButtonAdapter(this, imageIds);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+        bottomNavigationView.setSelectedItemId(R.id.eventNavItem);
+        bottomNavigationView.setSelected(false);
+        bottomNavigationView.setOnItemSelectedListener((@NotNull MenuItem item) -> {
+            final int id = item.getItemId();
+            if (R.id.budgetNavItem == id) {
+                startActivity(new Intent(getApplicationContext(), BudgetActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (R.id.guestNavItem == id) {
+                startActivity(new Intent(getApplicationContext(), GuestsActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (R.id.vendorNavItem == id) {
+                startActivity(new Intent(getApplicationContext(), VendorsActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else {
+                startActivity(new Intent(getApplicationContext(), EventsActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+        });
 
         gridView = findViewById(R.id.girdViewId);
         gridView.setAdapter(adapter);

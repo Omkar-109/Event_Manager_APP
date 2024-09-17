@@ -27,14 +27,17 @@ public class EventsActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener((@NotNull MenuItem item) -> {
             final int id = item.getItemId();
             if (R.id.budgetNavItem == id) {
+                finish();
                 startActivity(new Intent(getApplicationContext(), BudgetActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
             } else if (R.id.guestNavItem == id) {
+                finish();
                 startActivity(new Intent(getApplicationContext(), GuestsActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
             } else if (R.id.vendorNavItem == id) {
+                finish();
                 startActivity(new Intent(getApplicationContext(), VendorsActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
