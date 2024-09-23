@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal"
+    android:background="@color/white">
+
+    <!-- Icon for Create Event -->
+    <ImageView
+        android:id="@+id/event_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+
+        android:contentDescription="Event Icon"
+        app:srcCompat="@drawable/ev" />
+
+    <!-- Text Label for Create Event -->
+    <TextView
+        android:id="@+id/create_event_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create New Event"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Enter Name EditText -->
+    <EditText
+        android:id="@+id/input_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#D1D1D1"
+        android:hint="Enter Name"
+        android:padding="12dp"
+        android:textColor="@color/black" />
+
+    <!-- Date and Time inputs side by side -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <!-- Date TextView -->
+        <TextView
+            android:id="@+id/input_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#E8E8E8"
+
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Select Date"
+            android:textColor="@color/black" />
+
+        <!-- Time TextView -->
+        <TextView
+            android:id="@+id/input_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+
+            android:background="#E1E1E1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Select Time"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <!-- Budget EditText -->
+    <EditText
+        android:id="@+id/input_budget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#EAEAEA"
+        android:hint="Budget"
+
+        android:inputType="number"
+        android:padding="12dp"
+        android:textColor="@color/black" />
+
+    <!-- Create Button -->
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create"
+
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>
