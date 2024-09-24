@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal"
+    android:background="@color/white">
+
+    <!-- Icon for Add Vendor -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/vendor_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+
+            android:contentDescription="Vendor Icon"
+            app:srcCompat="@drawable/rounded_person_apron_24" />
+
+        <TextView
+            android:id="@+id/add_vendor_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_vertical"
+            android:text="Add Vendor"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/event_spinner"
+        android:layout_width="371dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/input_vendor_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Enter Vendor Name"
+
+        android:padding="12dp"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/input_service_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Service Type"
+        android:layout_marginTop="10dp"
+
+        android:padding="12dp"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:id="@+id/input_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone No"
+        android:inputType="phone"
+        android:layout_marginTop="10dp"
+
+        android:padding="12dp"
+        android:textColor="@color/black"/>
+
+
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email id"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="10dp"
+
+        android:padding="12dp"
+        android:textColor="@color/black"/>
+
+
+    <EditText
+        android:id="@+id/input_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Postal Address"
+        android:inputType="textPostalAddress"
+        android:layout_marginTop="10dp"
+        android:padding="12dp"
+        android:textColor="@color/black"/>
+
+
+    <Button
+        android:id="@+id/create_vendor_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create"
+
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>
