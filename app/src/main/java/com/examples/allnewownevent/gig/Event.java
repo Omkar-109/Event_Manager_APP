@@ -1,7 +1,8 @@
 package com.examples.allnewownevent.gig;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
+import java.util.Locale;
 
 public class Event extends UniqueIDProvider<Event> {
     private final Budget budget;
@@ -41,6 +42,16 @@ public class Event extends UniqueIDProvider<Event> {
         this.startDate = startDate;
     }
 
+    public String getFormattedEndDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        return dateFormat.format(endDate);
+    }
+
+    public String getFormattedStartDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        return dateFormat.format(startDate);
+    }
+
     public Date getEndDate() {
         return endDate;
     }
@@ -56,6 +67,5 @@ public class Event extends UniqueIDProvider<Event> {
     public void setLocation(String location) {
         this.location = location;
     }
-
 
 }
