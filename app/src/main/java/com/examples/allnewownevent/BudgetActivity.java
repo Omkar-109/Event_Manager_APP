@@ -1,7 +1,5 @@
 package com.examples.allnewownevent;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,12 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.examples.allnewownevent.gig.Event;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 
 public class BudgetActivity extends AppCompatActivity {
 
@@ -45,13 +42,12 @@ public class BudgetActivity extends AppCompatActivity {
         });
 
 
-
-        bottomNavigationView.setSelectedItemId(R.id.guestNavItem);
+        bottomNavigationView.setSelectedItemId(R.id.budgetNavItem);
         bottomNavigationView.setOnItemSelectedListener((@NotNull MenuItem item) -> {
             final int id = item.getItemId();
-            if (R.id.budgetNavItem == id) {
+            if (R.id.guestNavItem == id) {
                 finish();
-                startActivity(new Intent(getApplicationContext(), BudgetActivity.class));
+                startActivity(new Intent(getApplicationContext(), GuestsActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
             } else if (R.id.eventNavItem == id) {
@@ -65,7 +61,7 @@ public class BudgetActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 return true;
             }
-            return R.id.guestNavItem == id;
+            return R.id.budgetNavItem == id;
         });
         backToHome.setOnClickListener(view -> this.finish());
     }

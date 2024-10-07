@@ -1,10 +1,9 @@
 package com.examples.allnewownevent;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,7 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.view.LayoutInflater;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class VendorsActivity extends AppCompatActivity {
 
-    private String[] eventNames = {"Event 1", "Event 2", "Event 3"};
+    private final String[] eventNames = {"Event 1", "Event 2", "Event 3"};
 
     FloatingActionButton floatVendor;
     ImageButton backToHome;
@@ -42,12 +42,12 @@ public class VendorsActivity extends AppCompatActivity {
             }
         });
 
-        bottomNavigationView.setSelectedItemId(R.id.guestNavItem);
+        bottomNavigationView.setSelectedItemId(R.id.vendorNavItem);
         bottomNavigationView.setOnItemSelectedListener((@NotNull MenuItem item) -> {
             final int id = item.getItemId();
-            if (R.id.budgetNavItem == id) {
+            if (R.id.guestNavItem == id) {
                 finish();
-                startActivity(new Intent(getApplicationContext(), BudgetActivity.class));
+                startActivity(new Intent(getApplicationContext(), GuestsActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
             } else if (R.id.eventNavItem == id) {
@@ -55,13 +55,13 @@ public class VendorsActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), EventsActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
-            } else if (R.id.vendorNavItem == id) {
+            } else if (R.id.budgetNavItem == id) {
                 finish();
-                startActivity(new Intent(getApplicationContext(), VendorsActivity.class));
+                startActivity(new Intent(getApplicationContext(), BudgetActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
             }
-            return R.id.guestNavItem == id;
+            return R.id.vendorNavItem == id;
         });
 
         backToHome.setOnClickListener(view -> this.finish());
