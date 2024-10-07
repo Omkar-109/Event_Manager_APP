@@ -54,4 +54,6 @@
     <string name="guest_title">Guests</string>
     <string name="budget_title">Budget</string>
     <string name="vendor_title">Vendors</string>
+    <string name="add_budget">Add Budget Plan</string>
+    <string name="add_vendor">Add new vendor</string>
 </resources>
