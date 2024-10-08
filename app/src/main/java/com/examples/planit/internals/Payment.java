@@ -1,4 +1,4 @@
-package com.examples.allnewownevent.gig;
+package com.examples.planit.internals;
 
 import java.util.Date;
 

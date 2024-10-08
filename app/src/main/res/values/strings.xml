@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AllNewOwnEvent</string>
+    <string name="app_name">PlanIt</string>
     <string name="description">Image Buttons</string>
     <string name="title_activity_events">EventsActivity</string>
     <!-- Strings used for fragments for navigation -->
@@ -7,7 +7,6 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

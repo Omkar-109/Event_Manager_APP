@@ -1,4 +1,4 @@
-package com.examples.allnewownevent;
+package com.examples.planit;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -17,7 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.examples.allnewownevent.gig.Event;
+import com.examples.planit.internals.Event;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

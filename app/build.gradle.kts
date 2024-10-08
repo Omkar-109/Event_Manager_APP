@@ -2,12 +2,13 @@ plugins {
     id("com.android.application")
 }
 
+val bundleID = "com.examples.planit"
 android {
-    namespace = "com.examples.allnewownevent"
+    namespace = bundleID
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.examples.allnewownevent"
+        applicationId = bundleID
         minSdk = 26
         targetSdk = 34
         versionCode = 1

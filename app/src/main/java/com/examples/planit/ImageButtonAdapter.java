@@ -1,4 +1,4 @@
-package com.examples.allnewownevent;
+package com.examples.planit;
 
 import android.content.Context;
 import android.view.LayoutInflater;

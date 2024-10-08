@@ -1,4 +1,4 @@
-package com.examples.allnewownevent;
+package com.examples.planit;
 
 import android.app.AlertDialog;
 import android.content.Intent;

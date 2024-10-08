@@ -1,10 +1,9 @@
-package com.examples.allnewownevent;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.examples.planit;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -12,12 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-import android.view.LayoutInflater;
-
-
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Calendar;
 
 
 public class EventBudgetDetailActivity extends AppCompatActivity {

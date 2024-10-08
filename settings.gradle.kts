@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AllNewOwnEvent"
+rootProject.name = "PlanIt"
 include(":app")
  

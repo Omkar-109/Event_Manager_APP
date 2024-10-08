@@ -1,4 +1,4 @@
-package com.examples.allnewownevent;
+package com.examples.planit;
 
 import android.content.Intent;
 import android.graphics.Color;

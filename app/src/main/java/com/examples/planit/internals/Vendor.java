@@ -1,4 +1,4 @@
-package com.examples.allnewownevent.gig;
+package com.examples.planit.internals;
 
 public class Vendor extends UniqueIDProvider<Vendor> {
     private String name;

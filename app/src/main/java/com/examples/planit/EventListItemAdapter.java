@@ -1,4 +1,4 @@
-package com.examples.allnewownevent;
+package com.examples.planit;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.examples.allnewownevent.gig.Event;
+import com.examples.planit.internals.Event;
 
 import java.util.ArrayList;
 
