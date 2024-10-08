@@ -1,8 +1,6 @@
 package com.examples.planit;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,15 +28,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // Change the status bar color to black
-            getWindow().setStatusBarColor(Color.GRAY);
-        }
-
         ImageButtonAdapter adapter = new ImageButtonAdapter(this, imageIds);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        bottomNavigationView.setSelectedItemId(R.id.eventNavItem);
         bottomNavigationView.setSelected(false);
         bottomNavigationView.setOnItemSelectedListener((@NotNull MenuItem item) -> {
             final int id = item.getItemId();
@@ -64,10 +56,6 @@ public class MainActivity extends AppCompatActivity {
         gridView = findViewById(R.id.girdViewId);
         gridView.setAdapter(adapter);
 
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-//                android.R.layout.simple_list_item_1, new String[]{"Event", "Budget", "Guests", "Vendors"});
-//        gridView.setAdapter(adapter);
-
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             switch (position) {
                 case 0:
@@ -84,33 +72,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         });
-
-        // BottomNavigationView bottomNavigationView = findViewById(R.)
-        /*
-        NavigationBarView.OnItemSelectedListener((@NotNull MenuItem item) -> {
-            switch (item.getItemId()) {
-                case R.id.item1 -> {
-                    // Respond to navigation item 1 click
-                    return true;
-                }
-                case R.id.item2 -> {
-                    // Respond to navigation item 2 click
-                    return true;
-                }
-            }
-            return false;
-        });
-        */
-
-
-        /*
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-
-            }
-        });
-        */
     }
 
     public void goToEvents(View view) {
