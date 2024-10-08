@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class GuestsActivity extends AppCompatActivity {
 
-    private String[] eventNames = {"Event 1", "Event 2", "Event 3"};
+    private String[] eventNames = {"Event 1", "Event 2", "Event 3"}; //put actual database values here
 
     FloatingActionButton floatBtnGuest;
     BottomNavigationView bottomNavigationView;

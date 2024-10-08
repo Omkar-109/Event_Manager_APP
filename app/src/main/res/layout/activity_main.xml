@@ -51,7 +51,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:contentDescription="@string/logo"
-                android:src="@drawable/temp_logo" />
+                android:src="@drawable/planit_logo" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -136,8 +136,9 @@
         <GridView
             android:id="@+id/girdViewId"
             android:layout_width="wrap_content"
-            android:layout_height="363dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:layout_weight="1"
             android:elevation="5dp"
             android:horizontalSpacing="10dp"
             android:numColumns="2"
