@@ -173,7 +173,7 @@ public class EventsActivity extends AppCompatActivity {
                 // Getting Date object from Calendar
                 Date selectedDateTime = calendar.getTime();
 
-                Event e = new Event(name);
+                Event e = new Event(name, Double.valueOf(budget));
                 e.setStartDate(selectedDateTime);
                 eventArrayList.add(e);
 

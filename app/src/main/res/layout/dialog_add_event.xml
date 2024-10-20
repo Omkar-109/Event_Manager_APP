@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="#D1D1D1"
+        android:background="#FFF0EB"
         android:hint="Enter Name"
         android:padding="12dp"
         android:textColor="@color/black" />
@@ -51,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#E8E8E8"
+            android:background="#FFF0EB"
 
             android:clickable="true"
             android:focusable="true"
@@ -64,11 +64,11 @@
         <TextView
             android:id="@+id/input_time"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
 
-            android:background="#E1E1E1"
+            android:background="#FFF0EB"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -83,10 +83,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#EAEAEA"
+        android:background="#FFF0EB"
         android:hint="Budget"
 
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:padding="12dp"
         android:textColor="@color/black" />
 

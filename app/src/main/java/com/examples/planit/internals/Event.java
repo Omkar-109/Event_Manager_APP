@@ -20,10 +20,10 @@ public class Event extends UniqueIDProvider<Event> {
         this.budget = new Budget(0);
     }
 
-    public Event(String name) {
+    public Event(String name, double initialBudget) {
         super();
         this.name = name;
-        this.budget = new Budget(0);
+        this.budget = new Budget(initialBudget);
     }
 
     public String getName() {
@@ -66,6 +66,12 @@ public class Event extends UniqueIDProvider<Event> {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getBudget() {
+        String myBudget;
+        myBudget= String.valueOf(budget.getTotalBudget());
+        return myBudget;
     }
 
 }
