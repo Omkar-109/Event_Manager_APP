@@ -12,8 +12,6 @@ import androidx.annotation.Nullable;
 
 import com.examples.planit.internals.Event;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class EventListItemAdapter extends ArrayAdapter<Event> {
@@ -40,16 +38,16 @@ public class EventListItemAdapter extends ArrayAdapter<Event> {
 
         TextView tvName = currentItemView.findViewById(R.id.item_event_name);
         assert currentEvent != null;
-        String name="Name: "+currentEvent.getName();
+        String name = "Name: " + currentEvent.getName();
         tvName.setText(name);
 
 
         TextView tvDatetime = currentItemView.findViewById(R.id.item_dt);
-        String startDate="Date: "+currentEvent.getFormattedStartDate();
+        String startDate = "Starting In: " + currentEvent.getFormattedStartDate();
         tvDatetime.setText(startDate);
 
         TextView tvBudget = currentItemView.findViewById(R.id.item_budget);
-        String budgetItem = "Budget: "+currentEvent.getBudget();
+        String budgetItem = "Remaining Budget: " + currentEvent.getBudget().getRemainingBudget();
         tvBudget.setText(budgetItem);
 
         // then return the recyclable view

@@ -33,16 +33,18 @@ public class EventsActivity extends AppCompatActivity {
 
     ArrayList<Event> eventArrayList;
     EventListItemAdapter eventListItemAdapter;
+    DBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+        dbManager = new DBManager(getApplicationContext());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         ImageButton backToHome = findViewById(R.id.backToHome);
         ListView listView = findViewById(R.id.listView);
-        eventArrayList = new ArrayList<>();
+        eventArrayList = dbManager.getAllEvents();
         eventListItemAdapter = new EventListItemAdapter(this, eventArrayList);
         listView.setAdapter(eventListItemAdapter);
 
@@ -68,6 +70,7 @@ public class EventsActivity extends AppCompatActivity {
             return R.id.eventNavItem == id;
         });
 
+        dbManager.close();
 
         backToHome.setOnClickListener(view -> this.finish());
 
@@ -173,8 +176,10 @@ public class EventsActivity extends AppCompatActivity {
                 // Getting Date object from Calendar
                 Date selectedDateTime = calendar.getTime();
 
-                Event e = new Event(name, Double.valueOf(budget));
-                e.setStartDate(selectedDateTime);
+                Event e = new Event(name, selectedDateTime, Double.parseDouble(budget));
+                dbManager = new DBManager(getApplicationContext());
+                dbManager.addEvent(e);
+                dbManager.addBudget(e.getBudget());
                 eventArrayList.add(e);
 
                 eventListItemAdapter.notifyDataSetChanged();
