@@ -28,7 +28,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_margin="5dp"
-                android:background="#E8E8E8"
+                android:background="#FFFFFF"
                 android:contentDescription="@string/back_to_home"
                 android:padding="10dp"
                 android:scaleType="fitXY"
