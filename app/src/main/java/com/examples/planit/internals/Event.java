@@ -6,10 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 public class Event extends UniqueIDProvider<Event> {
     private final Budget budget;
     private String name;
+    private EventStatus eventStatus;
     private Date startDate;
     private String location;
 
@@ -19,6 +21,7 @@ public class Event extends UniqueIDProvider<Event> {
         this.startDate = new Date();
         this.location = "Unknown";
         this.budget = new Budget(0);
+        this.eventStatus = EventStatus.UPCOMING;
     }
 
     public Event(String name) {
@@ -27,6 +30,7 @@ public class Event extends UniqueIDProvider<Event> {
         this.startDate = new Date();
         this.location = "Unknown";
         this.budget = new Budget(0);
+        this.eventStatus = EventStatus.UPCOMING;
     }
 
     public Event(String name, double initialBudget) {
@@ -35,6 +39,7 @@ public class Event extends UniqueIDProvider<Event> {
         this.startDate = new Date();
         this.location = "Unknown";
         this.budget = new Budget(initialBudget);
+        this.eventStatus = EventStatus.UPCOMING;
     }
 
     public Event(String name, Date startDate, Double initial_budget) {
@@ -43,9 +48,10 @@ public class Event extends UniqueIDProvider<Event> {
         this.startDate = startDate;
         this.location = "Unknown";
         this.budget = new Budget(initial_budget);
+        this.eventStatus = EventStatus.UPCOMING;
     }
 
-    public Event(String uid, String name, @NonNull String startDate, String location, Budget budget) {
+    public Event(String uid, String name, @NonNull String startDate, String location, Budget budget, String eventStatus) {
         super(uid);
         this.name = name;
         String[] dateParts = (startDate.split(" "))[0].split("/");
@@ -68,6 +74,7 @@ public class Event extends UniqueIDProvider<Event> {
         this.startDate = calendar.getTime();
         this.location = location;
         this.budget = budget;
+        this.eventStatus = EventStatus.getEventStatusFromString(eventStatus);
     }
 
     public String getName() {
@@ -101,6 +108,14 @@ public class Event extends UniqueIDProvider<Event> {
 
     public Budget getBudget() {
         return budget;
+    }
+
+    public EventStatus getEventStatus() {
+        return eventStatus;
+    }
+
+    public void setEventStatus(EventStatus eventStatus) {
+        this.eventStatus = eventStatus;
     }
 }
 
