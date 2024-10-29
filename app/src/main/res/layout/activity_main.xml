@@ -148,12 +148,11 @@
             android:verticalSpacing="10dp" />
 
         <TextView
-            android:id="@+id/listOfEvents"
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_margin="10dp"
             android:background="@drawable/completed_list_bg"
-            android:clickable="true"
             android:elevation="10dp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/list_of_completed_events"
