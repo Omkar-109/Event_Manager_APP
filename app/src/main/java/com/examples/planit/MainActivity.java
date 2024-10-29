@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public class MainActivity extends AppCompatActivity {
 
     GridView gridView;
-
+    TextView list;
     int[] imageIds = {
             R.drawable.eventsimgbutton,
             R.drawable.budgetimagebutton,
@@ -53,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        list = findViewById(R.id.listOfEvents);
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToList(view);
+
+            }
+        });
+
         gridView = findViewById(R.id.girdViewId);
         gridView.setAdapter(adapter);
 
@@ -72,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         });
+
     }
 
     public void goToEvents(View view) {
@@ -93,5 +104,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, VendorsActivity.class);
         startActivity(intent);
     }
+
+    public void goToList(View view){
+        Intent intent = new Intent(this, EventsActivity.class);
+        startActivity(intent);
+    }
+
 
 }
