@@ -34,7 +34,6 @@ public class DBManager extends SQLiteOpenHelper {
     private static final String COL_EVENT_NAME = "eventName";
     private static final String COL_EVENT_DATE = "startDate";
     private static final String COL_EVENT_LOCATION = "location";
-    private static final String COL_EVENT_EVENT_STATUS = "eventStatus";
     private static final String COL_EVENT_BUDGET_UID = "budgetUID";
 
     // Budget Table Columns
@@ -80,14 +79,14 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(@NonNull SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db) {
         // Create tables
+
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_EVENT + " ("
                 + COL_EVENT_ID + " TEXT PRIMARY KEY,"
                 + COL_EVENT_NAME + " TEXT NOT NULL,"
                 + COL_EVENT_DATE + " TEXT NOT NULL,"
                 + COL_EVENT_LOCATION + " TEXT NOT NULL,"
-                + COL_EVENT_EVENT_STATUS + " TEXT NOT NULL,"
                 + COL_EVENT_BUDGET_UID + " TEXT NOT NULL);");
 
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_BUDGET + " ("
@@ -132,7 +131,7 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older tables if they exist
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUDGET);
@@ -145,22 +144,7 @@ public class DBManager extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    @Override
-    public void onDowngrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUDGET);
-        /*db.execSQL("DROP TABLE IF EXISTS " + TABLE_GUEST);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_VENDOR);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAYMENT);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUDGET_PAYMENTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_GUESTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_VENDORS);*/
-        onCreate(db);
-    }
-
-    /**
-     * @noinspection UnusedReturnValue
-     */
+    /** @noinspection UnusedReturnValue*/
     public boolean addEvent(@NonNull Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -168,7 +152,6 @@ public class DBManager extends SQLiteOpenHelper {
         contentValues.put(COL_EVENT_NAME, event.getName());
         contentValues.put(COL_EVENT_DATE, event.getFormattedStartDate());
         contentValues.put(COL_EVENT_LOCATION, event.getLocation());
-        contentValues.put(COL_EVENT_EVENT_STATUS, event.getEventStatus().getStatus());
 
         contentValues.put(COL_EVENT_BUDGET_UID, event.getBudget().getUID().toString());
         long result = db.insert(TABLE_EVENT, null, contentValues);
@@ -194,12 +177,11 @@ public class DBManager extends SQLiteOpenHelper {
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_NAME));
                 String startDate = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_DATE));
                 String location = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_LOCATION));
-                String eventStatus = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_EVENT_STATUS));
 
                 String budgetUID = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_BUDGET_UID));
                 Budget budget = getBudgetById(budgetUID);
 
-                events.add(new Event(uid, name, startDate, location, budget, eventStatus));
+                events.add(new Event(uid, name, startDate, location, budget));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -236,12 +218,11 @@ public class DBManager extends SQLiteOpenHelper {
             String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_NAME));
             String startDate = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_DATE));
             String location = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_LOCATION));
-            String eventStatus = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_EVENT_STATUS));
 
             String budgetUID = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_BUDGET_UID));
             Budget budget = getBudgetById(budgetUID);
 
-            event = new Event(uid, name, startDate, location, budget, eventStatus);
+            event = new Event(uid, name, startDate, location, budget);
 
         } else {
             event = new Event();
@@ -254,9 +235,7 @@ public class DBManager extends SQLiteOpenHelper {
 
     // Budget
 
-    /**
-     * @noinspection UnusedReturnValue
-     */
+    /** @noinspection UnusedReturnValue*/
     public boolean addBudget(@NonNull Budget budget) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -293,7 +272,7 @@ public class DBManager extends SQLiteOpenHelper {
         return budgets;
     }
 
-    public boolean updateBudget(@NonNull Budget budget) {
+    public boolean updateBudget(Budget budget) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_BUDGET_TOTAL_AMOUNT, budget.getTotalBudget());
@@ -303,7 +282,7 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     // TODO: Delete Budget and delete reference in BudgetPayments Table
-    public Integer deleteBudget(@NonNull Budget budget) {
+    public Integer deleteBudget(Budget budget) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_BUDGET, COL_BUDGET_ID + " = ?", new String[]{budget.getUID().toString()});
     }
