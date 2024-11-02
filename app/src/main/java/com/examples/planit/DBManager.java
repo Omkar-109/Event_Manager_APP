@@ -16,6 +16,15 @@ import com.examples.planit.internals.Vendor;
 
 import java.util.ArrayList;
 
+/**
+ * Database manager for the Event Management application.
+ * This class is responsible for handling the creation, upgrade, and management of the database, including
+ * CRUD operations for Event, Budget, Guest, and Vendor entities.
+ *
+ * @author Ram Amoncar
+ * @author Omkar Mhamal
+ * @version 2.0
+ */
 public class DBManager extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "event_manager.db";
@@ -118,7 +127,7 @@ public class DBManager extends SQLiteOpenHelper {
                 + COL_EVENT_VENDOR_ID + " TEXT NOT NULL,"
                 + COL_VENDOR_UID + " TEXT NOT NULL,"
                 + "PRIMARY KEY (" + COL_EVENT_VENDOR_ID + ", " + COL_VENDOR_UID + "));");
-/*
+        /*
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_PAYMENT + " ("
                 + COL_PAYMENT_ID + " TEXT PRIMARY KEY,"
                 + COL_AMOUNT + " REAL NOT NULL,"
@@ -130,8 +139,7 @@ public class DBManager extends SQLiteOpenHelper {
                 + COL_BUDGET_PAY_UID + " TEXT NOT NULL,"
                 + COL_PAYMENT_UID + " TEXT NOT NULL,"
                 + "PRIMARY KEY (" + COL_BUDGET_PAY_UID + ", " + COL_PAYMENT_UID + "));");
-
-                */
+        */
     }
 
     @Override
@@ -144,13 +152,18 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_GUESTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_VENDORS);
 
-        /*db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAYMENT);
+        /*
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAYMENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUDGET_PAYMENTS);
         */
         onCreate(db);
     }
 
     /**
+     * Adds a new event to the database.
+     *
+     * @param event The event to add. Must not be null.
+     * @return true if the event was added successfully, false otherwise.
      * @noinspection UnusedReturnValue
      */
     public boolean addEvent(@NonNull Event event) {
@@ -173,6 +186,11 @@ public class DBManager extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    /**
+     * Retrieves all events from the database.
+     *
+     * @return A list of all events. The list may be empty if no events are found.
+     */
     public ArrayList<Event> getAllEvents() {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -196,6 +214,12 @@ public class DBManager extends SQLiteOpenHelper {
         return events;
     }
 
+    /**
+     * Updates an existing event in the database.
+     *
+     * @param event The event to update. Must not be null.
+     * @return true if the event was updated successfully, false otherwise.
+     */
     public boolean updateEvent(@NonNull Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -206,6 +230,12 @@ public class DBManager extends SQLiteOpenHelper {
         return result > 0;
     }
 
+    /**
+     * Deletes an event from the database, including its associated guests and vendors.
+     *
+     * @param event The event to delete. Must not be null.
+     * @return The number of rows affected, which can be zero if no event was found to delete.
+     */
     public Integer deleteEvent(@NonNull Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
         String eventUID = event.getUID().toString();
@@ -228,6 +258,12 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Retrieves an event from the database by its unique identifier.
+     *
+     * @param eventUID The unique identifier of the event. Must not be null.
+     * @return The event corresponding to the given UID, or a new Event if no match is found.
+     */
     public Event getEventById(String eventUID) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_EVENT + " WHERE " + COL_EVENT_ID + " = ?", new String[]{eventUID});
@@ -243,7 +279,6 @@ public class DBManager extends SQLiteOpenHelper {
             Budget budget = getBudgetById(budgetUID);
 
             event = new Event(uid, name, startDate, location, budget);
-
         } else {
             event = new Event();
         }
@@ -256,6 +291,10 @@ public class DBManager extends SQLiteOpenHelper {
     // Budget
 
     /**
+     * Adds a new budget to the database.
+     *
+     * @param budget The budget to add. Must not be null.
+     * @return true if the budget was added successfully, false otherwise.
      * @noinspection UnusedReturnValue
      */
     public boolean addBudget(@NonNull Budget budget) {
@@ -275,6 +314,11 @@ public class DBManager extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    /**
+     * Retrieves all budgets from the database.
+     *
+     * @return A list of all budgets. The list may be empty if no budgets are found.
+     */
     public ArrayList<Budget> getAllBudgets() {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -294,6 +338,12 @@ public class DBManager extends SQLiteOpenHelper {
         return budgets;
     }
 
+    /**
+     * Updates an existing budget in the database.
+     *
+     * @param budget The budget to update. Must not be null.
+     * @return true if the budget was updated successfully, false otherwise.
+     */
     public boolean updateBudget(@NonNull Budget budget) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -304,12 +354,24 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     // TODO: Delete Budget and delete reference in BudgetPayments Table
+
+    /**
+     * Deletes a budget from the database.
+     *
+     * @param budget The budget to delete. Must not be null.
+     * @return The number of rows affected, which can be zero if no budget was found to delete.
+     */
     public Integer deleteBudget(@NonNull Budget budget) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_BUDGET, COL_BUDGET_ID + " = ?", new String[]{budget.getUID().toString()});
     }
 
-    // Get Budget by ID
+    /**
+     * Retrieves a budget from the database by its unique identifier.
+     *
+     * @param budgetUID The unique identifier of the budget. Must not be null.
+     * @return The budget corresponding to the given UID, or a new Budget with zero values if no match is found.
+     */
     public Budget getBudgetById(String budgetUID) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_BUDGET + " WHERE " + COL_BUDGET_ID + " = ?", new String[]{budgetUID});
@@ -327,6 +389,13 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     // Guest
+
+    /**
+     * Adds a new guest to the database.
+     *
+     * @param guest The guest to add. Must not be null.
+     * @return true if the guest was added successfully, false otherwise.
+     */
     public boolean addGuest(@NonNull Guest guest) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -340,6 +409,11 @@ public class DBManager extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    /**
+     * Retrieves all guests from the database.
+     *
+     * @return A list of all guests. The list may be empty if no guests are found.
+     */
     public ArrayList<Guest> getAllGuests() {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Guest> guests = new ArrayList<>();
@@ -360,6 +434,12 @@ public class DBManager extends SQLiteOpenHelper {
         return guests;
     }
 
+    /**
+     * Updates an existing guest in the database.
+     *
+     * @param guest The guest to update. Must not be null.
+     * @return true if the guest was updated successfully, false otherwise.
+     */
     public boolean updateGuest(@NonNull Guest guest) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -372,12 +452,25 @@ public class DBManager extends SQLiteOpenHelper {
         return result > 0;
     }
 
+    /**
+     * Deletes a guest from the database.
+     *
+     * @param guest The guest to delete. Must not be null.
+     * @return The number of rows affected, which can be zero if no guest was found to delete.
+     */
     public Integer deleteGuest(@NonNull Guest guest) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_GUEST, COL_GUEST_ID + " = ?", new String[]{guest.getUID().toString()});
     }
 
     // Vendor
+
+    /**
+     * Adds a new vendor to the database.
+     *
+     * @param vendor The vendor to add. Must not be null.
+     * @return true if the vendor was added successfully, false otherwise.
+     */
     public boolean addVendor(@NonNull Vendor vendor) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -390,6 +483,11 @@ public class DBManager extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    /**
+     * Retrieves all vendors from the database.
+     *
+     * @return A list of all vendors. The list may be empty if no vendors are found.
+     */
     public ArrayList<Vendor> getAllVendors() {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Vendor> vendors = new ArrayList<>();
@@ -409,6 +507,12 @@ public class DBManager extends SQLiteOpenHelper {
         return vendors;
     }
 
+    /**
+     * Updates an existing vendor in the database.
+     *
+     * @param vendor The vendor to update. Must not be null.
+     * @return true if the vendor was updated successfully, false otherwise.
+     */
     public boolean updateVendor(@NonNull Vendor vendor) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -420,6 +524,13 @@ public class DBManager extends SQLiteOpenHelper {
         return result > 0;
     }
 
+
+    /**
+     * Deletes a vendor from the database.
+     *
+     * @param vendor The vendor to delete. Must not be null.
+     * @return The number of rows affected, which can be zero if no vendor was found to delete.
+     */
     public Integer deleteVendor(@NonNull Vendor vendor) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_VENDOR, COL_VENDOR_ID + " = ?", new String[]{vendor.getUID().toString()});
@@ -427,6 +538,13 @@ public class DBManager extends SQLiteOpenHelper {
 
     // Event's Guests
 
+    /**
+     * Adds a guest to a specific event in the database.
+     *
+     * @param eventUID The unique identifier of the event. Must not be null.
+     * @param guestUID The unique identifier of the guest. Must not be null.
+     * @return true if the guest was added successfully to the event, false otherwise.
+     */
     public boolean addEventGuest(String eventUID, String guestUID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -437,6 +555,12 @@ public class DBManager extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    /**
+     * Retrieves a list of guests associated with a specific event.
+     *
+     * @param eventUID The unique identifier of the event. Must not be null.
+     * @return A list of guests associated with the event. The list may be empty if no guests are found.
+     */
     public ArrayList<Guest> getGuestsForEvent(String eventUID) {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Guest> guests = new ArrayList<>();
@@ -460,6 +584,13 @@ public class DBManager extends SQLiteOpenHelper {
         return guests;
     }
 
+    /**
+     * Deletes a guest from a specific event.
+     *
+     * @param eventUID The unique identifier of the event. Must not be null.
+     * @param guestUID The unique identifier of the guest. Must not be null.
+     * @return The number of rows affected, which can be zero if no guest was found for the event to delete.
+     */
     public Integer deleteEventGuest(String eventUID, String guestUID) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_EVENT_GUESTS, COL_EVENT_GUEST_ID + " = ? AND " + COL_GUEST_UID + " = ?", new String[]{eventUID, guestUID});
@@ -467,6 +598,14 @@ public class DBManager extends SQLiteOpenHelper {
 
 
     // Event's Vendors
+
+    /**
+     * Adds a vendor to a specific event in the database.
+     *
+     * @param eventUID  The unique identifier of the event. Must not be null.
+     * @param vendorUID The unique identifier of the vendor. Must not be null.
+     * @return true if the vendor was added successfully to the event, false otherwise.
+     */
     public boolean addEventVendor(String eventUID, String vendorUID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -477,6 +616,12 @@ public class DBManager extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    /**
+     * Retrieves a list of vendors associated with a specific event.
+     *
+     * @param eventUID The unique identifier of the event. Must not be null.
+     * @return A list of vendors associated with the event. The list may be empty if no vendors are found.
+     */
     public ArrayList<Vendor> getVendorsForEvent(String eventUID) {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Vendor> vendors = new ArrayList<>();
@@ -499,6 +644,13 @@ public class DBManager extends SQLiteOpenHelper {
         return vendors;
     }
 
+    /**
+     * Deletes a vendor from a specific event.
+     *
+     * @param eventUID  The unique identifier of the event. Must not be null.
+     * @param vendorUID The unique identifier of the vendor. Must not be null.
+     * @return The number of rows affected, which can be zero if no vendor was found for the event to delete.
+     */
     public Integer deleteEventVendor(String eventUID, String vendorUID) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_EVENT_VENDORS, COL_EVENT_VENDOR_ID + " = ? AND " + COL_VENDOR_UID + " = ?", new String[]{eventUID, vendorUID});
