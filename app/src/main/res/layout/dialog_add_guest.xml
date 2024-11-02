@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="20dp"
+    android:background="#FF9800"
     android:gravity="center_horizontal"
-    android:background="@color/white">
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <!-- Icon for Add Guest -->
     <ImageView
@@ -22,18 +22,23 @@
         android:id="@+id/add_guest_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Add Guest"
         android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp"/>
+        android:textSize="18sp" />
 
     <!-- Select Event Spinner -->
     <Spinner
         android:id="@+id/event_spinner"
-        android:layout_width="373dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="10dp"
-        android:spinnerMode="dropdown" />
+        android:background="#FFD4C5"
+        android:backgroundTintMode="multiply"
+        android:padding="5dp"
+        android:popupBackground="@drawable/completed_list_bg"
+        android:spinnerMode="dropdown"
+        android:tooltipText="Select Event" />
 
 
     <!-- Enter Guest Name EditText -->
@@ -41,42 +46,45 @@
         android:id="@+id/input_guest_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Guest Name"
         android:layout_marginTop="10dp"
+        android:background="#FFD4C5"
 
+        android:hint="Enter Guest Name"
         android:padding="12dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
     <!-- Phone Number EditText -->
     <EditText
         android:id="@+id/input_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFD4C5"
         android:hint="Phone No"
-        android:inputType="phone"
-    android:layout_marginTop="10dp"
 
-    android:padding="12dp"
-    android:textColor="@color/black"/>
+        android:inputType="phone"
+        android:padding="12dp"
+        android:textColor="@color/black" />
 
     <!-- Email ID EditText -->
     <EditText
         android:id="@+id/input_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFD4C5"
         android:hint="Email id"
-        android:inputType="textEmailAddress"
-    android:layout_marginTop="10dp"
 
-    android:padding="12dp"
-    android:textColor="@color/black"/>
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:textColor="@color/black" />
 
     <!-- Create Button -->
     <Button
         android:id="@+id/create_guest_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Create"
-        android:textColor="@color/white"
-        android:layout_marginTop="20dp"/>
+        android:textColor="@color/white" />
 </LinearLayout>

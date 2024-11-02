@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AllNewOwnEvent"
         tools:targetApi="31">
         <activity
+            android:name=".VendorListItemAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".GuestListItemAdapter"
+            android:exported="false" />
+        <activity
             android:name=".EventBudgetDetailActivity"
             android:exported="false" />
         <activity

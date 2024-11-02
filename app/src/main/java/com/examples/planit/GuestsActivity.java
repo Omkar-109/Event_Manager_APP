@@ -1,6 +1,7 @@
 package com.examples.planit;
 
-import android.app.AlertDialog;
+import static com.examples.planit.internals.RSVPStatus.PENDING;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,13 +11,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.examples.planit.internals.Guest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import java.util.ArrayList;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,12 +30,24 @@ public class GuestsActivity extends AppCompatActivity {
     FloatingActionButton floatBtnGuest;
     BottomNavigationView bottomNavigationView;
     ImageButton backToHome;
-    private String[] eventNames = {"Event 1", "Event 2", "Event 3"}; //put actual database values here
+    ArrayList<Guest> guestArrayList;
+    GuestListItemAdapter guestListItemAdapter;
+    ArrayList<String> eventNames;
+    DBManager dbManager;
+
+    // Retrieve event names from the database
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guests);
+
+        dbManager = new DBManager(getApplicationContext());
+        guestArrayList = dbManager.getAllGuests();
+        guestListItemAdapter = new GuestListItemAdapter(this, guestArrayList);
+        eventNames = dbManager.getAllEventNames();
+        ListView listView = findViewById(R.id.listViewGuest);
+        listView.setAdapter(guestListItemAdapter);
 
         floatBtnGuest = findViewById(R.id.floatingGuest);
 
@@ -94,19 +110,35 @@ public class GuestsActivity extends AppCompatActivity {
         createGuestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Validation logic here
-                if (guestName.getText().toString().trim().isEmpty() ||
-                        phoneNumber.getText().toString().trim().isEmpty() ||
-                        email.getText().toString().trim().isEmpty()) {
+                String selectedEvent = eventSpinner.getSelectedItem().toString();
+                String name = guestName.getText().toString().trim();
+                String emailStr = email.getText().toString().trim();
+                String phone = phoneNumber.getText().toString().trim();
 
+                // Validation logic
+                if (name.isEmpty() || emailStr.isEmpty() || phone.isEmpty()) {
                     Toast.makeText(GuestsActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Logic to add guest
+                    // Logic to add guest to database
+                    addGuest(selectedEvent, name, emailStr, phone);
                     dialog.dismiss();
                 }
             }
         });
 
         dialog.show();
+    }
+    private void addGuest(String event, String name, String email, String phone) {
+        Guest newGuest = new Guest(name, email, phone, PENDING);
+        boolean result = dbManager.addGuest(newGuest);
+
+        if (result) {
+            // Successfully added the guest, refresh the list
+            guestArrayList.add(newGuest);
+            guestListItemAdapter.notifyDataSetChanged();
+            Toast.makeText(this, "Guest added successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Failed to add guest", Toast.LENGTH_SHORT).show();
+        }
     }
 }

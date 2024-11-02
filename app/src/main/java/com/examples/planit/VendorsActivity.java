@@ -10,19 +10,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.examples.planit.internals.Vendor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
-public class VendorsActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    private final String[] eventNames = {"Event 1", "Event 2", "Event 3"};
+public class VendorsActivity extends AppCompatActivity {
+    ArrayList<Vendor> vendorArrayList;
+    VendorListItemAdapter vendorListItemAdapter;
+    DBManager dbManager;
+    ArrayList<String> eventNames;
 
     FloatingActionButton floatVendor;
     ImageButton backToHome;
@@ -42,7 +48,12 @@ public class VendorsActivity extends AppCompatActivity {
                 showAddVendorDialog();
             }
         });
-
+        dbManager = new DBManager(getApplicationContext());
+        vendorArrayList = dbManager.getAllVendors();
+        vendorListItemAdapter = new VendorListItemAdapter(this, vendorArrayList);
+        eventNames = dbManager.getAllEventNames();
+        ListView listView = findViewById(R.id.listViewVendor);
+        listView.setAdapter(vendorListItemAdapter);
         bottomNavigationView.setSelectedItemId(R.id.vendorNavItem);
         bottomNavigationView.setOnItemSelectedListener((@NotNull MenuItem item) -> {
             final int id = item.getItemId();
@@ -94,17 +105,36 @@ public class VendorsActivity extends AppCompatActivity {
         createVendorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Validation logic here
-                if (vendorName.getText().toString().trim().isEmpty() || serviceType.getText().toString().trim().isEmpty() || phoneNumber.getText().toString().trim().isEmpty() || email.getText().toString().trim().isEmpty() || address.getText().toString().trim().isEmpty()) {
-
+                String selectedEvent = eventSpinner.getSelectedItem().toString();
+                String name = vendorName.getText().toString().trim();
+                String service = serviceType.getText().toString().trim();
+                String phone = phoneNumber.getText().toString().trim();
+                String emailStr = email.getText().toString().trim();
+                String vendorAddress = address.getText().toString().trim();
+                // Validation logic
+                if (name.isEmpty() || service.isEmpty() || phone.isEmpty() || emailStr.isEmpty() || vendorAddress.isEmpty()) {
                     Toast.makeText(VendorsActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
                     // Logic to add vendor
+                    addVendor(selectedEvent, name, service, phone, emailStr, vendorAddress);
                     dialog.dismiss();
                 }
             }
         });
 
         dialog.show();
+    }
+    private void addVendor(String event, String name, String service, String phone, String email, String address) {
+        Vendor newVendor = new Vendor(name, service, phone);
+        boolean result = dbManager.addVendor(newVendor);
+
+        if (result) {
+            // Successfully added the vendor, refresh the list
+            vendorArrayList.add(newVendor);
+            vendorListItemAdapter.notifyDataSetChanged();
+            Toast.makeText(this, "Vendor added successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Failed to add vendor", Toast.LENGTH_SHORT).show();
+        }
     }
 }

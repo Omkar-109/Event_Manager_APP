@@ -43,7 +43,7 @@ public class EventsActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         ImageButton backToHome = findViewById(R.id.backToHome);
-        ListView listView = findViewById(R.id.listView);
+        ListView listView = findViewById(R.id.listViewGuest);
         eventArrayList = dbManager.getAllEvents();
         eventListItemAdapter = new EventListItemAdapter(this, eventArrayList);
         listView.setAdapter(eventListItemAdapter);
