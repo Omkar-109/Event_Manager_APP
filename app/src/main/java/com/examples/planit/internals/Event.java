@@ -77,6 +77,23 @@ public class Event extends UniqueIDProvider<Event> {
     }
 
     /**
+     * Constructs an Event with a specified name, start date, initial budget and location.
+     *
+     * @param name           the name of the event
+     * @param startDate      the start date of the event
+     * @param initial_budget the initial budget amount
+     * @param location       the location of the event
+     */
+    public Event(String name, Date startDate, Double initial_budget, String location) {
+        super();
+        this.name = name;
+        this.startDate = startDate;
+        this.location = location;
+        this.budget = new Budget(initial_budget);
+    }
+
+
+    /**
      * Constructs an Event with a specified unique identifier, name, start date, location, and budget.
      *
      * @param uid       the unique identifier for the event

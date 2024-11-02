@@ -55,4 +55,12 @@
     <string name="vendor_title">Vendors</string>
     <string name="add_budget">Add Budget Plan</string>
     <string name="add_vendor">Add new vendor</string>
+    <string name="default_event_icon">Default Event Icon</string>
+    <string name="create_new_event">Create New Event</string>
+    <string name="enter_event_name">Enter event name</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select Time</string>
+    <string name="what_is_the_budget">What\'s the Budget</string>
+    <string name="location_of_the_event">Location of the event</string>
+    <string name="create_btn">Create</string>
 </resources>

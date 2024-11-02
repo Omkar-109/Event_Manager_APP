@@ -94,6 +94,7 @@ public class EventsActivity extends AppCompatActivity {
             TextView dateTextView = dialogView.findViewById(R.id.input_date);
             TextView timeTextView = dialogView.findViewById(R.id.input_time);
             EditText budgetInput = dialogView.findViewById(R.id.input_budget);
+            EditText locationInput = dialogView.findViewById(R.id.input_location);
             Button submitButton = dialogView.findViewById(R.id.submit_button);
 
             // Create and show the dialog
@@ -134,6 +135,7 @@ public class EventsActivity extends AppCompatActivity {
                 String date = dateTextView.getText().toString().trim();
                 String time = timeTextView.getText().toString().trim();
                 String budget = budgetInput.getText().toString().trim();
+                String location = locationInput.getText().toString().trim();
 
                 if (name.isEmpty()) {
                     nameInput.setError("Name is required");
@@ -154,6 +156,12 @@ public class EventsActivity extends AppCompatActivity {
                     budgetInput.setError("Budget is required");
                     return;
                 }
+
+                if (location.isEmpty()) {
+                    locationInput.setError("Location is required");
+                    return;
+                }
+
                 // Extracting date components
                 String[] dateParts = date.split("/");
                 int dayOfMonth = Integer.parseInt(dateParts[0]);   // Day of month
@@ -176,7 +184,7 @@ public class EventsActivity extends AppCompatActivity {
                 // Getting Date object from Calendar
                 Date selectedDateTime = calendar.getTime();
 
-                Event e = new Event(name, selectedDateTime, Double.parseDouble(budget));
+                Event e = new Event(name, selectedDateTime, Double.parseDouble(budget), location);
                 dbManager = new DBManager(getApplicationContext());
                 dbManager.addEvent(e);
                 dbManager.addBudget(e.getBudget());
