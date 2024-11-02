@@ -80,9 +80,7 @@ public class EventBudgetDetailActivity extends AppCompatActivity {
         createPaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (paymentName.getText().toString().trim().isEmpty() ||
-                        paymentAmount.getText().toString().trim().isEmpty() ||
-                        paidDate.getText().toString().trim().isEmpty()) {
+                if (paymentName.getText().toString().trim().isEmpty() || paymentAmount.getText().toString().trim().isEmpty() || paidDate.getText().toString().trim().isEmpty()) {
                     Toast.makeText(EventBudgetDetailActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
                     // Add logic to create a payment
@@ -101,13 +99,12 @@ public class EventBudgetDetailActivity extends AppCompatActivity {
     // Show DatePicker dialog
     private void showDatePickerDialog(final EditText paidDate) {
         final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(EventBudgetDetailActivity.this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        paidDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-                    }
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        DatePickerDialog datePickerDialog = new DatePickerDialog(EventBudgetDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                paidDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
 }

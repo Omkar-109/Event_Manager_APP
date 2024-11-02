@@ -20,6 +20,7 @@ public class BudgetActivity extends AppCompatActivity {
     ImageButton backToHome;
     BottomNavigationView bottomNavigationView;
     ListView eventListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

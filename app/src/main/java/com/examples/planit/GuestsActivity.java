@@ -23,11 +23,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class GuestsActivity extends AppCompatActivity {
 
-    private String[] eventNames = {"Event 1", "Event 2", "Event 3"}; //put actual database values here
-
     FloatingActionButton floatBtnGuest;
     BottomNavigationView bottomNavigationView;
     ImageButton backToHome;
+    private String[] eventNames = {"Event 1", "Event 2", "Event 3"}; //put actual database values here
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

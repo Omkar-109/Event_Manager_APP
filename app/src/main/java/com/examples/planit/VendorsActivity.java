@@ -27,6 +27,7 @@ public class VendorsActivity extends AppCompatActivity {
     FloatingActionButton floatVendor;
     ImageButton backToHome;
     BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,11 +95,7 @@ public class VendorsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Validation logic here
-                if (vendorName.getText().toString().trim().isEmpty() ||
-                        serviceType.getText().toString().trim().isEmpty() ||
-                        phoneNumber.getText().toString().trim().isEmpty() ||
-                        email.getText().toString().trim().isEmpty() ||
-                        address.getText().toString().trim().isEmpty()) {
+                if (vendorName.getText().toString().trim().isEmpty() || serviceType.getText().toString().trim().isEmpty() || phoneNumber.getText().toString().trim().isEmpty() || email.getText().toString().trim().isEmpty() || address.getText().toString().trim().isEmpty()) {
 
                     Toast.makeText(VendorsActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
