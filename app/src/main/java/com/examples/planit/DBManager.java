@@ -214,6 +214,23 @@ public class DBManager extends SQLiteOpenHelper {
         return events;
     }
 
+    public ArrayList<String> getAllEventNames() {
+        ArrayList<String> eventNames = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_EVENT, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVENT_NAME));
+                eventNames.add(name); // Get the event name
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return eventNames;
+    }
+
+
     /**
      * Updates an existing event in the database.
      *
