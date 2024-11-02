@@ -14,6 +14,14 @@ public class Guest extends UniqueIDProvider<Guest> {
         this.status = status;
     }
 
+    public Guest(String uid, String name, String email, String phone, String status) {
+        super(uid);
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.status = RSVPStatus.fromString(status);
+    }
+
     public String getName() {
         return name;
     }

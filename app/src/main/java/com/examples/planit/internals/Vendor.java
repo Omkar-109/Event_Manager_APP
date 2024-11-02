@@ -12,6 +12,13 @@ public class Vendor extends UniqueIDProvider<Vendor> {
         this.contactInfo = contactInfo;
     }
 
+    public Vendor(String uid, String name, String serviceType, String contactInfo) {
+        super(uid);
+        this.name = name;
+        this.serviceType = serviceType;
+        this.contactInfo = contactInfo;
+    }
+
     public String getName() {
         return name;
     }

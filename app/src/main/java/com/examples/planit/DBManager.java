@@ -11,23 +11,25 @@ import androidx.annotation.NonNull;
 
 import com.examples.planit.internals.Budget;
 import com.examples.planit.internals.Event;
+import com.examples.planit.internals.Guest;
+import com.examples.planit.internals.Vendor;
 
 import java.util.ArrayList;
 
 public class DBManager extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "event_manager.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Table Names
     private static final String TABLE_EVENT = "Event";
     private static final String TABLE_BUDGET = "Budget";
     private static final String TABLE_GUEST = "Guest";
     private static final String TABLE_VENDOR = "Vendor";
-    private static final String TABLE_PAYMENT = "Payment";
-    private static final String TABLE_BUDGET_PAYMENTS = "BudgetPayments";
     private static final String TABLE_EVENT_GUESTS = "EventGuests";
     private static final String TABLE_EVENT_VENDORS = "EventVendors";
+    private static final String TABLE_PAYMENT = "Payment";
+    private static final String TABLE_BUDGET_PAYMENTS = "BudgetPayments";
 
     // Event Table Columns
     private static final String COL_EVENT_ID = "eventUID";
@@ -43,14 +45,14 @@ public class DBManager extends SQLiteOpenHelper {
 
     // Guest Table Columns
     private static final String COL_GUEST_ID = "guestUID";
-    private static final String COL_GUEST_NAME = "name";
-    private static final String COL_EMAIL = "email";
-    private static final String COL_PHONE = "phone";
-    private static final String COL_GUEST_STATUS = "status";
+    private static final String COL_GUEST_NAME = "guest_name";
+    private static final String COL_EMAIL = "guest_email";
+    private static final String COL_PHONE = "guest_phone";
+    private static final String COL_GUEST_STATUS = "guest_status";
 
     // Vendor Table Columns
     private static final String COL_VENDOR_ID = "vendorUID";
-    private static final String COL_VENDOR_NAME = "name";
+    private static final String COL_VENDOR_NAME = "vendor_name";
     private static final String COL_SERVICE_TYPE = "serviceType";
     private static final String COL_CONTACT_INFO = "contactInfo";
 
@@ -94,7 +96,7 @@ public class DBManager extends SQLiteOpenHelper {
                 + COL_BUDGET_TOTAL_AMOUNT + " REAL NOT NULL,"
                 + COL_BUDGET_ALLOCATED_AMOUNT + " REAL NOT NULL);");
 
-     /*   db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_GUEST + " ("
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_GUEST + " ("
                 + COL_GUEST_ID + " TEXT PRIMARY KEY,"
                 + COL_GUEST_NAME + " TEXT NOT NULL,"
                 + COL_EMAIL + " TEXT NOT NULL,"
@@ -107,6 +109,16 @@ public class DBManager extends SQLiteOpenHelper {
                 + COL_SERVICE_TYPE + " TEXT NOT NULL,"
                 + COL_CONTACT_INFO + " TEXT NOT NULL);");
 
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_EVENT_GUESTS + " ("
+                + COL_EVENT_GUEST_ID + " TEXT NOT NULL,"
+                + COL_GUEST_UID + " TEXT NOT NULL,"
+                + "PRIMARY KEY (" + COL_EVENT_GUEST_ID + ", " + COL_GUEST_UID + "));");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_EVENT_VENDORS + " ("
+                + COL_EVENT_VENDOR_ID + " TEXT NOT NULL,"
+                + COL_VENDOR_UID + " TEXT NOT NULL,"
+                + "PRIMARY KEY (" + COL_EVENT_VENDOR_ID + ", " + COL_VENDOR_UID + "));");
+/*
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_PAYMENT + " ("
                 + COL_PAYMENT_ID + " TEXT PRIMARY KEY,"
                 + COL_AMOUNT + " REAL NOT NULL,"
@@ -119,15 +131,7 @@ public class DBManager extends SQLiteOpenHelper {
                 + COL_PAYMENT_UID + " TEXT NOT NULL,"
                 + "PRIMARY KEY (" + COL_BUDGET_PAY_UID + ", " + COL_PAYMENT_UID + "));");
 
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_EVENT_GUESTS + " ("
-                + COL_EVENT_GUEST_ID + " TEXT NOT NULL,"
-                + COL_GUEST_UID + " TEXT NOT NULL,"
-                + "PRIMARY KEY (" + COL_EVENT_GUEST_ID + ", " + COL_GUEST_UID + "));");
-
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_EVENT_VENDORS + " ("
-                + COL_EVENT_VENDOR_ID + " TEXT NOT NULL,"
-                + COL_VENDOR_UID + " TEXT NOT NULL,"
-                + "PRIMARY KEY (" + COL_EVENT_VENDOR_ID + ", " + COL_VENDOR_UID + "));");*/
+                */
     }
 
     @Override
@@ -135,16 +139,20 @@ public class DBManager extends SQLiteOpenHelper {
         // Drop older tables if they exist
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUDGET);
-        /*db.execSQL("DROP TABLE IF EXISTS " + TABLE_GUEST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VENDOR);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAYMENT);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUDGET_PAYMENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GUEST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_GUESTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_VENDORS);*/
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_VENDORS);
+
+        /*db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAYMENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUDGET_PAYMENTS);
+        */
         onCreate(db);
     }
 
-    /** @noinspection UnusedReturnValue*/
+    /**
+     * @noinspection UnusedReturnValue
+     */
     public boolean addEvent(@NonNull Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -198,15 +206,27 @@ public class DBManager extends SQLiteOpenHelper {
         return result > 0;
     }
 
-    // TODO: When Deleting event we have to delete everything related to that event
     public Integer deleteEvent(@NonNull Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int res = db.delete(TABLE_EVENT, COL_EVENT_ID + " = ?", new String[]{event.getUID().toString()});
-        if (res > 0) {
-            res = deleteBudget(event.getBudget());
+        String eventUID = event.getUID().toString();
+
+        // Delete associated guests
+        db.delete(TABLE_EVENT_GUESTS, COL_EVENT_GUEST_ID + " = ?", new String[]{eventUID});
+        db.delete(TABLE_GUEST, COL_GUEST_ID + " IN (SELECT " + COL_GUEST_UID + " FROM " + TABLE_EVENT_GUESTS + " WHERE " + COL_EVENT_GUEST_ID + " = ?)", new String[]{eventUID});
+
+        // Delete associated vendors
+        db.delete(TABLE_EVENT_VENDORS, COL_EVENT_VENDOR_ID + " = ?", new String[]{eventUID});
+        db.delete(TABLE_VENDOR, COL_VENDOR_ID + " IN (SELECT " + COL_VENDOR_UID + " FROM " + TABLE_EVENT_VENDORS + " WHERE " + COL_EVENT_VENDOR_ID + " = ?)", new String[]{eventUID});
+
+        // Delete the event itself
+        int result = db.delete(TABLE_EVENT, COL_EVENT_ID + " = ?", new String[]{eventUID});
+
+        if (result > 0) {
+            result = deleteBudget(event.getBudget());
         }
-        return res;
+        return result;
     }
+
 
     public Event getEventById(String eventUID) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -235,7 +255,9 @@ public class DBManager extends SQLiteOpenHelper {
 
     // Budget
 
-    /** @noinspection UnusedReturnValue*/
+    /**
+     * @noinspection UnusedReturnValue
+     */
     public boolean addBudget(@NonNull Budget budget) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -272,7 +294,7 @@ public class DBManager extends SQLiteOpenHelper {
         return budgets;
     }
 
-    public boolean updateBudget(Budget budget) {
+    public boolean updateBudget(@NonNull Budget budget) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_BUDGET_TOTAL_AMOUNT, budget.getTotalBudget());
@@ -282,7 +304,7 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     // TODO: Delete Budget and delete reference in BudgetPayments Table
-    public Integer deleteBudget(Budget budget) {
+    public Integer deleteBudget(@NonNull Budget budget) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_BUDGET, COL_BUDGET_ID + " = ?", new String[]{budget.getUID().toString()});
     }
@@ -304,4 +326,181 @@ public class DBManager extends SQLiteOpenHelper {
         return budget;
     }
 
+    // Guest
+    public boolean addGuest(@NonNull Guest guest) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_GUEST_ID, guest.getUID().toString());
+        contentValues.put(COL_GUEST_NAME, guest.getName());
+        contentValues.put(COL_EMAIL, guest.getEmail());
+        contentValues.put(COL_PHONE, guest.getPhone());
+        contentValues.put(COL_GUEST_STATUS, guest.getStatus().toString());
+
+        long result = db.insert(TABLE_GUEST, null, contentValues);
+        return result != -1;
+    }
+
+    public ArrayList<Guest> getAllGuests() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Guest> guests = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_GUEST, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String uid = cursor.getString(cursor.getColumnIndexOrThrow(COL_GUEST_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_GUEST_NAME));
+                String email = cursor.getString(cursor.getColumnIndexOrThrow(COL_EMAIL));
+                String phone = cursor.getString(cursor.getColumnIndexOrThrow(COL_PHONE));
+                String status = cursor.getString(cursor.getColumnIndexOrThrow(COL_GUEST_STATUS));
+
+                guests.add(new Guest(uid, name, email, phone, status));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return guests;
+    }
+
+    public boolean updateGuest(@NonNull Guest guest) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_GUEST_NAME, guest.getName());
+        contentValues.put(COL_EMAIL, guest.getEmail());
+        contentValues.put(COL_PHONE, guest.getPhone());
+        contentValues.put(COL_GUEST_STATUS, guest.getStatus().toString());
+
+        int result = db.update(TABLE_GUEST, contentValues, COL_GUEST_ID + " = ?", new String[]{guest.getUID().toString()});
+        return result > 0;
+    }
+
+    public Integer deleteGuest(@NonNull Guest guest) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_GUEST, COL_GUEST_ID + " = ?", new String[]{guest.getUID().toString()});
+    }
+
+    // Vendor
+    public boolean addVendor(@NonNull Vendor vendor) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_VENDOR_ID, vendor.getUID().toString());
+        contentValues.put(COL_VENDOR_NAME, vendor.getName());
+        contentValues.put(COL_SERVICE_TYPE, vendor.getServiceType());
+        contentValues.put(COL_CONTACT_INFO, vendor.getContactInfo());
+
+        long result = db.insert(TABLE_VENDOR, null, contentValues);
+        return result != -1;
+    }
+
+    public ArrayList<Vendor> getAllVendors() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Vendor> vendors = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_VENDOR, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String uid = cursor.getString(cursor.getColumnIndexOrThrow(COL_VENDOR_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_VENDOR_NAME));
+                String serviceType = cursor.getString(cursor.getColumnIndexOrThrow(COL_SERVICE_TYPE));
+                String contactInfo = cursor.getString(cursor.getColumnIndexOrThrow(COL_CONTACT_INFO));
+
+                vendors.add(new Vendor(uid, name, serviceType, contactInfo));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return vendors;
+    }
+
+    public boolean updateVendor(@NonNull Vendor vendor) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_VENDOR_NAME, vendor.getName());
+        contentValues.put(COL_SERVICE_TYPE, vendor.getServiceType());
+        contentValues.put(COL_CONTACT_INFO, vendor.getContactInfo());
+
+        int result = db.update(TABLE_VENDOR, contentValues, COL_VENDOR_ID + " = ?", new String[]{vendor.getUID().toString()});
+        return result > 0;
+    }
+
+    public Integer deleteVendor(@NonNull Vendor vendor) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_VENDOR, COL_VENDOR_ID + " = ?", new String[]{vendor.getUID().toString()});
+    }
+
+    // Event's Guests
+
+    public boolean addEventGuest(String eventUID, String guestUID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_EVENT_GUEST_ID, eventUID);
+        contentValues.put(COL_GUEST_UID, guestUID);
+
+        long result = db.insert(TABLE_EVENT_GUESTS, null, contentValues);
+        return result != -1;
+    }
+
+    public ArrayList<Guest> getGuestsForEvent(String eventUID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Guest> guests = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_GUEST +
+                " INNER JOIN " + TABLE_EVENT_GUESTS +
+                " ON " + TABLE_GUEST + "." + COL_GUEST_ID + " = " + TABLE_EVENT_GUESTS + "." + COL_GUEST_UID +
+                " WHERE " + TABLE_EVENT_GUESTS + "." + COL_EVENT_GUEST_ID + " = ?", new String[]{eventUID});
+
+        if (cursor.moveToFirst()) {
+            do {
+                String uid = cursor.getString(cursor.getColumnIndexOrThrow(COL_GUEST_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_GUEST_NAME));
+                String email = cursor.getString(cursor.getColumnIndexOrThrow(COL_EMAIL));
+                String phone = cursor.getString(cursor.getColumnIndexOrThrow(COL_PHONE));
+                String status = cursor.getString(cursor.getColumnIndexOrThrow(COL_GUEST_STATUS));
+
+                guests.add(new Guest(uid, name, email, phone, status));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return guests;
+    }
+
+    public Integer deleteEventGuest(String eventUID, String guestUID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_EVENT_GUESTS, COL_EVENT_GUEST_ID + " = ? AND " + COL_GUEST_UID + " = ?", new String[]{eventUID, guestUID});
+    }
+
+
+    // Event's Vendors
+    public boolean addEventVendor(String eventUID, String vendorUID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_EVENT_VENDOR_ID, eventUID);
+        contentValues.put(COL_VENDOR_UID, vendorUID);
+
+        long result = db.insert(TABLE_EVENT_VENDORS, null, contentValues);
+        return result != -1;
+    }
+
+    public ArrayList<Vendor> getVendorsForEvent(String eventUID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Vendor> vendors = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_VENDOR +
+                " INNER JOIN " + TABLE_EVENT_VENDORS +
+                " ON " + TABLE_VENDOR + "." + COL_VENDOR_ID + " = " + TABLE_EVENT_VENDORS + "." + COL_VENDOR_UID +
+                " WHERE " + TABLE_EVENT_VENDORS + "." + COL_EVENT_VENDOR_ID + " = ?", new String[]{eventUID});
+
+        if (cursor.moveToFirst()) {
+            do {
+                String uid = cursor.getString(cursor.getColumnIndexOrThrow(COL_VENDOR_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_VENDOR_NAME));
+                String serviceType = cursor.getString(cursor.getColumnIndexOrThrow(COL_SERVICE_TYPE));
+                String contactInfo = cursor.getString(cursor.getColumnIndexOrThrow(COL_CONTACT_INFO));
+
+                vendors.add(new Vendor(uid, name, serviceType, contactInfo));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return vendors;
+    }
+
+    public Integer deleteEventVendor(String eventUID, String vendorUID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_EVENT_VENDORS, COL_EVENT_VENDOR_ID + " = ? AND " + COL_VENDOR_UID + " = ?", new String[]{eventUID, vendorUID});
+    }
 }
