@@ -27,7 +27,7 @@ public class BudgetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_budget);
         backToHome = findViewById(R.id.backToHome);
         bottomNavigationView = findViewById(R.id.bottom_navigation1);
-        eventListView = findViewById(R.id.budgeteventlist);
+        eventListView = findViewById(R.id.budgetEventList);
 
         eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

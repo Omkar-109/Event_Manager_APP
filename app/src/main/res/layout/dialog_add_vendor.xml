@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="20dp"
+    android:background="#FF9800"
     android:gravity="center_horizontal"
-    android:background="@color/white">
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <!-- Icon for Add Vendor -->
 
@@ -36,17 +36,19 @@
 
     <Spinner
         android:id="@+id/event_spinner"
-        android:layout_width="371dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:background="#FFD4C5" />
 
     <EditText
         android:id="@+id/input_vendor_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Enter Vendor Name"
+        android:background="#FFD4C5"
 
+        android:hint="Enter Vendor Name"
         android:padding="12dp"
         android:textColor="@color/black" />
 
@@ -54,53 +56,57 @@
         android:id="@+id/input_service_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Service Type"
         android:layout_marginTop="10dp"
+        android:background="#FFD4C5"
 
+        android:hint="Service Type"
         android:padding="12dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
     <EditText
         android:id="@+id/input_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone No"
-        android:inputType="phone"
         android:layout_marginTop="10dp"
+        android:background="#FFD4C5"
+        android:hint="Phone No"
 
+        android:inputType="phone"
         android:padding="12dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
 
     <EditText
         android:id="@+id/input_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email id"
-        android:inputType="textEmailAddress"
         android:layout_marginTop="10dp"
+        android:background="#FFD4C5"
+        android:hint="Email id"
 
+        android:inputType="textEmailAddress"
         android:padding="12dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
 
     <EditText
         android:id="@+id/input_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFD4C5"
         android:hint="Postal Address"
         android:inputType="textPostalAddress"
-        android:layout_marginTop="10dp"
         android:padding="12dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
 
     <Button
         android:id="@+id/create_vendor_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create"
+        android:layout_marginTop="20dp"
 
-        android:textColor="@color/white"
-        android:layout_marginTop="20dp"/>
+        android:text="Create"
+        android:textColor="@color/white" />
 </LinearLayout>
