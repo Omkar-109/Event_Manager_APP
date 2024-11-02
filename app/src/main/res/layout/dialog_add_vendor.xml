@@ -39,7 +39,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:background="#FFD4C5" />
+        android:background="#FFD4C5"
+        android:elevation="1dp"
+        android:popupBackground="#FF9C5A" />
 
     <EditText
         android:id="@+id/input_vendor_name"
@@ -48,9 +50,11 @@
         android:layout_marginTop="10dp"
         android:background="#FFD4C5"
 
+        android:elevation="1dp"
         android:hint="Enter Vendor Name"
         android:padding="12dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textColorHint="#616161" />
 
     <EditText
         android:id="@+id/input_service_type"
@@ -59,9 +63,11 @@
         android:layout_marginTop="10dp"
         android:background="#FFD4C5"
 
+        android:elevation="1dp"
         android:hint="Service Type"
         android:padding="12dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textColorHint="#616161" />
 
     <EditText
         android:id="@+id/input_phone"
@@ -69,11 +75,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="#FFD4C5"
-        android:hint="Phone No"
+        android:elevation="1dp"
 
+        android:hint="Phone No"
         android:inputType="phone"
         android:padding="12dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textColorHint="#616161" />
 
 
     <EditText
@@ -82,11 +90,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="#FFD4C5"
-        android:hint="Email id"
+        android:elevation="1dp"
 
+        android:hint="Email id"
         android:inputType="textEmailAddress"
         android:padding="12dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textColorHint="#616161" />
 
 
     <EditText
@@ -95,10 +105,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="#FFD4C5"
+        android:elevation="1dp"
         android:hint="Postal Address"
         android:inputType="textPostalAddress"
         android:padding="12dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textColorHint="#616161" />
 
 
     <Button
@@ -107,6 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
 
+        android:elevation="3dp"
         android:text="Create"
         android:textColor="@color/white" />
 </LinearLayout>

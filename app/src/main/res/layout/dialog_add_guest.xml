@@ -36,7 +36,7 @@
         android:background="#FFD4C5"
         android:backgroundTintMode="multiply"
         android:padding="5dp"
-        android:popupBackground="@drawable/completed_list_bg"
+        android:popupBackground="#FF9C5A"
         android:spinnerMode="dropdown"
         android:tooltipText="Select Event" />
 
@@ -51,7 +51,8 @@
 
         android:hint="Enter Guest Name"
         android:padding="12dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textColorHint="#616161" />
 
     <!-- Phone Number EditText -->
     <EditText
@@ -64,7 +65,8 @@
 
         android:inputType="phone"
         android:padding="12dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textColorHint="#616161" />
 
     <!-- Email ID EditText -->
     <EditText
@@ -77,7 +79,8 @@
 
         android:inputType="textEmailAddress"
         android:padding="12dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textColorHint="#616161" />
 
     <!-- Create Button -->
     <Button
@@ -85,6 +88,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="#5F03FF"
+        android:backgroundTint="#5B00FF"
         android:text="Create"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        app:cornerRadius="50dp" />
 </LinearLayout>

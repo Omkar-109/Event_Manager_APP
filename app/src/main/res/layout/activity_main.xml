@@ -167,6 +167,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bottom_orange"
+        app:elevation="7dp"
         app:itemBackground="@drawable/bottom_design"
         app:itemIconTint="@color/white"
         app:itemTextColor="#FFFFFF"
