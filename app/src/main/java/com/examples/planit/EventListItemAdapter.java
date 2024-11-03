@@ -35,16 +35,18 @@ public class EventListItemAdapter extends ArrayAdapter<Event> {
         // get the position of the view from the ArrayAdapter
         Event currentEvent = getItem(position);
 
-
         TextView tvName = currentItemView.findViewById(R.id.item_event_name);
         assert currentEvent != null;
         String name = "Name: " + currentEvent.getName();
         tvName.setText(name);
 
-
         TextView tvDatetime = currentItemView.findViewById(R.id.item_dt);
         String startDate = "Starting In: " + currentEvent.getFormattedStartDate();
         tvDatetime.setText(startDate);
+
+        TextView tvLocation = currentItemView.findViewById(R.id.item_venue);
+        String location = "Venue: " + currentEvent.getLocation();
+        tvLocation.setText(location);
 
         TextView tvBudget = currentItemView.findViewById(R.id.item_budget);
         String budgetItem = "Remaining Budget: " + currentEvent.getBudget().getRemainingBudget();
