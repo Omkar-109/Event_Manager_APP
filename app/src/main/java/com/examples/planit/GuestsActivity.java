@@ -1,5 +1,11 @@
 package com.examples.planit;
-
+/**
+ *
+ * @author Ram Amoncar
+ * @author Omkar Mhamal
+ * @version 1.0
+ *
+ */
 import static com.examples.planit.internals.RSVPStatus.PENDING;
 
 import android.content.Intent;

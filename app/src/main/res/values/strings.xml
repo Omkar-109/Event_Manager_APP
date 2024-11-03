@@ -63,7 +63,7 @@
     <string name="what_is_the_budget">What\'s the Budget</string>
     <string name="location_of_the_event">Location of the event</string>
     <string name="create_btn">Create</string>
-    <string name="about_app">This app is for event management. Users can create events, add guest, vendors to events, allocate budget for events. This is a one place solution for all type of events. This app for those who are planning to have an event and wants to keep all records in onr place for quick access. </string>
+    <string name="about_app">This app is for event management. Users can create events, add guest, vendors to events, allocate budget for the event. This is a one place solution for all type of events. This app is designed for those who are planning to have an event and wants to keep all records in one place for quick access. </string>
     <string name="default_countdown">00 : 00 : 00 : 00</string>
     <string name="no_events">No Event Here</string>
 </resources>

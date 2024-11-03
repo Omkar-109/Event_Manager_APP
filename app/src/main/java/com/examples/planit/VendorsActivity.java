@@ -1,5 +1,11 @@
 package com.examples.planit;
-
+/**
+ *
+ * @author Ram Amoncar
+ * @author Omkar Mhamal
+ * @version 1.0
+ *
+ */
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
