@@ -673,9 +673,4 @@ public class DBManager extends SQLiteOpenHelper {
         return db.delete(TABLE_EVENT_VENDORS, COL_EVENT_VENDOR_ID + " = ? AND " + COL_VENDOR_UID + " = ?", new String[]{eventUID, vendorUID});
     }
 
-    public String getEarliestEventName() {
-        String earliestEventName = "Event Name";
-
-        return earliestEventName;
-    }
 }
