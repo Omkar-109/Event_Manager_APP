@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     GridView gridView;
     TextView upcomingEventName;
+
+    ImageButton aboutButton;
     DBManager dbManager;
     int[] imageIds = {
             R.drawable.eventsimgbutton,
@@ -35,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
         // Get the earliest event name
         String earliestEvent = dbManager.getEarliestEventName();
 
+        aboutButton=findViewById(R.id.aboutButton);
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToAbout(view);
+            }
+        });
 
         if (earliestEvent != null) {
             upcomingEventName.setText(earliestEvent);
@@ -103,6 +113,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToVendors(View view) {
         Intent intent = new Intent(MainActivity.this, VendorsActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToAbout(View view){
+        Intent intent = new Intent(MainActivity.this, About.class);
         startActivity(intent);
     }
 
