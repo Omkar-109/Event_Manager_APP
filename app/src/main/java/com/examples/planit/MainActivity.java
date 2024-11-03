@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +17,8 @@ import org.jetbrains.annotations.NotNull;
 public class MainActivity extends AppCompatActivity {
 
     GridView gridView;
-
+    TextView upcomingEventName;
+    DBManager dbManager;
     int[] imageIds = {
             R.drawable.eventsimgbutton,
             R.drawable.budgetimagebutton,
@@ -27,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dbManager = new DBManager(getApplicationContext());
+        upcomingEventName=findViewById(R.id.ucEventName);
+        // Get the earliest event name
+        String earliestEvent = dbManager.getEarliestEventName();
+
+
+        if (earliestEvent != null) {
+            upcomingEventName.setText(earliestEvent);
+        }
 
         ImageButtonAdapter adapter = new ImageButtonAdapter(this, imageIds);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

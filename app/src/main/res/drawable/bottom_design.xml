@@ -3,5 +3,5 @@
 
     <gradient android:angle="@integer/material_motion_duration_long_1" android:startColor="#5C00FF" android:endColor="#300095"/>
     <stroke android:width="15dp" android:color="#00FFFFFF"/>
-    <corners android:topLeftRadius="40dp" android:bottomRightRadius="40dp"/>
+    <corners android:topLeftRadius="30dp" android:bottomRightRadius="30dp" android:topRightRadius="5dp" android:bottomLeftRadius="5dp"/>
 </shape>

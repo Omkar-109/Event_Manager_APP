@@ -27,6 +27,8 @@
             android:id="@+id/add_vendor_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/aclonica"
             android:gravity="center|center_vertical"
             android:text="Add Vendor"
             android:textAlignment="textStart"
@@ -119,6 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
 
+        android:backgroundTint="#5E03FF"
         android:elevation="3dp"
         android:text="Create"
         android:textColor="@color/white" />

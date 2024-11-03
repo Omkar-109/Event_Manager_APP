@@ -21,10 +21,11 @@
         android:id="@+id/create_event_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/aclonica"
         android:text="@string/create_new_event"
         android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp"/>
+        android:textSize="18sp" />
 
     <!-- Enter Name EditText -->
     <EditText
@@ -38,7 +39,7 @@
         android:inputType="text"
         android:padding="12dp"
         android:textColor="@color/black"
-        android:textColorHint="#546E7A" />
+        android:textColorHint="#3E444B" />
 
     <!-- Date and Time inputs side by side -->
     <LinearLayout
@@ -57,9 +58,10 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
+            android:hint="@string/select_date"
             android:padding="12dp"
-            android:text="@string/select_date"
-            android:textColor="@color/black" />
+            android:textColor="#000000"
+            android:textColorHint="#3E444B" />
 
         <!-- Time TextView -->
         <TextView
@@ -72,9 +74,10 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
+            android:hint="@string/select_time"
             android:padding="12dp"
-            android:text="@string/select_time"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textColorHint="#3E444B" />
     </LinearLayout>
 
     <!-- Budget EditText -->
@@ -89,7 +92,7 @@
         android:inputType="numberDecimal"
         android:padding="12dp"
         android:textColor="@color/black"
-        android:textColorHint="#546E7A" />
+        android:textColorHint="#3E444B" />
 
     <!-- Budget EditText -->
     <EditText
@@ -103,14 +106,16 @@
         android:inputType="textPostalAddress"
         android:padding="12dp"
         android:textColor="@color/black"
-        android:textColorHint="#546E7A" />
+        android:textColorHint="#3E444B" />
 
     <!-- Create Button -->
     <Button
         android:id="@+id/submit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#5A02FA"
         android:text="@string/create_btn"
         android:textColor="@color/white"
-        android:layout_marginTop="20dp"/>
+        android:textSize="20sp" />
 </LinearLayout>

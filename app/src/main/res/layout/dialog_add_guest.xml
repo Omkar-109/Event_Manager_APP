@@ -23,9 +23,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/aclonica"
         android:text="Add Guest"
         android:textColor="@color/black"
-        android:textSize="18sp" />
+        android:textSize="20sp" />
 
     <!-- Select Event Spinner -->
     <Spinner
@@ -52,7 +53,7 @@
         android:hint="Enter Guest Name"
         android:padding="12dp"
         android:textColor="@color/black"
-        android:textColorHint="#616161" />
+        android:textColorHint="#3E444B" />
 
     <!-- Phone Number EditText -->
     <EditText
@@ -66,7 +67,7 @@
         android:inputType="phone"
         android:padding="12dp"
         android:textColor="@color/black"
-        android:textColorHint="#616161" />
+        android:textColorHint="#3E444B" />
 
     <!-- Email ID EditText -->
     <EditText
@@ -80,7 +81,7 @@
         android:inputType="textEmailAddress"
         android:padding="12dp"
         android:textColor="@color/black"
-        android:textColorHint="#616161" />
+        android:textColorHint="#3E444B" />
 
     <!-- Create Button -->
     <Button
@@ -88,9 +89,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="#5F03FF"
-        android:backgroundTint="#5B00FF"
+        android:backgroundTint="#5600FB"
         android:text="Create"
         android:textColor="@color/white"
-        app:cornerRadius="50dp" />
+
+        android:textSize="20sp" />
 </LinearLayout>
