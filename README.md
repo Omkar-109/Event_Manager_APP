@@ -67,3 +67,18 @@ ________________________________________
 *	Cloud Sync: Future iterations of the app could include cloud synchronization to allow users to back up their data online and sync across multiple devices.
 *	Reminders: Adding notification reminders for event deadlines or pending tasks to enhance event planning.
 *	Export Data: An option to export event and budget details as PDF or CSV files for sharing with others or for personal records.
+
+___________________
+## App Logo and Icon
+### Logo
+<img src="https://github.com/user-attachments/assets/1cc510a3-e2f2-47cc-ab4f-9dd212856018" width="300">
+
+### App Icon 
+<img src="https://github.com/user-attachments/assets/4cdb6de6-6cb4-499f-b423-c58a470ac794" width="300">
+
+___________
+## App Screenshots
+<img src="https://github.com/user-attachments/assets/182f13f3-0617-4530-8aa2-b0de7c83fc04" width="250">
+<img src="https://github.com/user-attachments/assets/5a82eb83-0555-438f-9ef8-ab6e15598055" width="250">
+<img src="https://github.com/user-attachments/assets/fc01214b-98f5-44d3-93ce-520a28731925" width="250">
+<img src="https://github.com/user-attachments/assets/bfd0ad18-6901-4ea9-bbab-f92f1f37f38b" width="250">
